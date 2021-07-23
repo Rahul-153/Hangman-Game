@@ -12,14 +12,18 @@ int main()
     int wrongGuess = 0;
     srand(time(NULL));
     int n = rand() % 6;
+    string test;
+    test = arr[n];
     int stars = arr[n].length();
-    char starString[7];
+    int size = stars;
+    string starString;
     for (int i = 0; i < stars; i++)
-        starString[i] = '*';
+        starString += '*';
     int guess = stars + 3;
-    int check = 0;
+    int check;
     while (guess > 1)
     {
+        check = 0;
         guess = guess - 1;
         cout << "Guess the name of a city in India\n\n";
         cout << "You have " << guess << " chances to make it right\n\n";
@@ -30,31 +34,43 @@ int main()
         char alp;
         cout << "Enter a alphabet you think can match\n";
         cin >> alp;
-        int found = arr[n].find(alp);
-        if (found != string::npos)
-        {
-            ++correctGuess;
-            starString[found] = alp;
-        }
-        else
-        {
-            ++wrongGuess;
-        }
+        int found = test.find(alp);
+        for (int i = 0; i < arr[n].length(); i++)
+            if (alp == test[i])
+            {
+                test[i] = '*';
+                if (found != string::npos)
+                {
+                    ++correctGuess;
+                    starString[i] = alp;
+                    --size;
+                }
+                else
+                {
+                    ++wrongGuess;
+                }
+            }
         for (int i = 0; i < stars; i++)
         {
-            if (starString[i] == arr[n][i])
+            if (starString[i] != arr[n][i])
+            {
                 check = 1;
-            else
-                check = 0;
+                break;
+            }
         }
-        if (check == 1)
+        if (check == 0)
         {
             cout << "You win";
             break;
         }
+        if (!(guess >= size))
+        {
+            check = 1;
+            break;
+        }
         system("CLS");
     }
-    if (check == 0)
+    if (check == 1)
     {
         cout << "Sorry you lose " << endl;
         cout << "The correct word is " << arr[n];
