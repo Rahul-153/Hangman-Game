@@ -60,6 +60,10 @@ int main()
         }
         if (check == 0)
         {
+            system("CLS");
+            for (int i = 0; i < stars; i++)
+                cout << starString[i];
+            cout << "\n";
             cout << "You win";
             break;
         }
@@ -72,6 +76,7 @@ int main()
     }
     if (check == 1)
     {
+        system("Color 0A");
         cout << "Sorry you lose " << endl;
         cout << "The correct word is " << arr[n];
     }
